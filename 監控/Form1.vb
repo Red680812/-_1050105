@@ -3,6 +3,7 @@ Imports System
 Imports System.IO.Ports
 Imports System.Threading
 Imports System.Text
+Imports System.Threading.Tasks
 Imports FxDll
 
 Public Class Form1
@@ -60,7 +61,7 @@ Public Class Form1
                 sbr.Items(0).Text = RW.Port_status
                 sbr.Items(1).Text = "串口已連接"
                 sbr.Items(1).ForeColor = Color.Green
-                'Timer1.Enabled = True
+                Timer1.Enabled = True
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             End Try
@@ -147,7 +148,7 @@ Public Class Form1
 
         If (Me.TabControl1.SelectedIndex = 0 OrElse Me.TabControl1.SelectedIndex = 2 _
             OrElse Me.TabControl1.SelectedIndex = 3) AndAlso RW.IsOpen = True Then
-        Dim Thread1 As New System.Threading.Thread(AddressOf Action)
+            Dim Thread1 As New System.Threading.Thread(AddressOf Action)
             Thread1.Start()
 
             If (Me.TabControl1.SelectedIndex = 2) Then
@@ -167,15 +168,14 @@ Public Class Form1
                 GV_1.FillColor = OvalShape1_4.FillColor
                 GV_2.FillColor = OvalShape1_4.FillColor
                 GAV.FillColor = OvalShape1_3.FillColor
-            End If
-            If (Me.TabControl1.SelectedIndex = 3) Then
+            ElseIf (Me.TabControl1.SelectedIndex = 3) Then
                 Mv_Btn.BackColor = OvalShape1_21.FillColor
                 Fv_Btn.BackColor = OvalShape1_20.FillColor
                 Rv_Btn.BackColor = OvalShape1_19.FillColor
                 Slv_Btn.BackColor = OvalShape1_18.FillColor
                 Hv_Btn.BackColor = OvalShape1_17.FillColor
                 MixV_Btn.BackColor = OvalShape1_16.FillColor
-                ARV_Btn.BackColor = OvalShape1_15.FillColor
+                ArV_Btn.BackColor = OvalShape1_15.FillColor
                 Gas_Btn.BackColor = OvalShape1_7.FillColor
                 HgV_1.FillColor = OvalShape1_6.FillColor
                 HgV_2.FillColor = OvalShape1_5.FillColor
@@ -228,7 +228,7 @@ Public Class Form1
         Gv_Btn.BackColor = OvalShape1_4.FillColor
     End Sub
     Private Sub OvalShape_X(ByVal number As Integer, ByVal Lamp_Status As Integer)
-        Dim iar() As PowerPacks.OvalShape = { _
+        Dim iar() As PowerPacks.OvalShape = {
                                       OvalShape2_1, OvalShape2_1, OvalShape2_2, OvalShape2_3, OvalShape2_4, OvalShape2_5 _
                                     , OvalShape2_6, OvalShape2_7, OvalShape2_8, OvalShape2_9, OvalShape2_10, OvalShape2_11 _
                                     , OvalShape2_12, OvalShape2_13, OvalShape2_14, OvalShape2_15, OvalShape2_16, OvalShape2_17 _
@@ -241,11 +241,11 @@ Public Class Form1
                 .FillStyle = PowerPacks.FillStyle.Solid
             Else
                 : .FillColor = Color.Transparent
-                : End If
-            : End With
+            End If
+        End With
     End Sub
     Private Sub OvalShape_Y(ByVal number As Integer, ByVal Lamp_Status As Integer)
-        Dim iar() As PowerPacks.OvalShape = { _
+        Dim iar() As PowerPacks.OvalShape = {
                                       OvalShape1_1, OvalShape1_1, OvalShape1_2, OvalShape1_3, OvalShape1_4, OvalShape1_5 _
                                     , OvalShape1_6, OvalShape1_7, OvalShape1_8, OvalShape1_9, OvalShape1_10, OvalShape1_11 _
                                     , OvalShape1_12, OvalShape1_13, OvalShape1_14, OvalShape1_15, OvalShape1_16, OvalShape1_17 _
@@ -258,8 +258,8 @@ Public Class Form1
                 .FillStyle = PowerPacks.FillStyle.Solid
             Else
                 : .FillColor = Color.Transparent
-                : End If
-            : End With
+            End If
+        End With
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
@@ -344,7 +344,7 @@ Public Class Form1
         RW.WriteBit(1)
         RW.WriteBit(0)
     End Sub
-
+    Dim loop_ As Boolean
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
 
         'Dim TH As Threading.ThreadStart
@@ -352,20 +352,208 @@ Public Class Form1
         'TH = New ThreadStart(AddressOf Action1)
         'CT = New Threading.Thread(TH)
         'CT.Start()
-        'Timer2.Enabled = True
-        Dim ThreadX As New System.Threading.Thread(AddressOf ActionX)
-        ThreadX.Start()
-        Dim ThreadY As New System.Threading.Thread(AddressOf ActionY)
-        ThreadY.Start()
+        Timer1.Enabled = False
+        loop_ = True
+        Dim Thread1 As New System.Threading.Thread(AddressOf TimeSpanTest)
+        Thread1.Start()
+        Dim Thread2 As New System.Threading.Thread(AddressOf Test)
+        Thread2.Start()
+        Timer2.Enabled = True
+        'Dim ThreadX As New System.Threading.Thread(AddressOf ActionX)
+        'ThreadX.Start()
+        'Dim ThreadY As New System.Threading.Thread(AddressOf ActionY)
+        'ThreadY.Start()
     End Sub
+    Dim nowtime As DateTime
+    Sub TimeSpanTest()
+        Dim mTime As New TimeSpan
+        'Dim nowtime As DateTime
+        '先記錄目前的時間 
+        nowtime = Now
+        Do While loop_ = True
+            'sleep 1000毫秒 
+            System.Threading.Thread.Sleep(1000)
+            '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
+            mTime = Now.Subtract(nowtime)
+            '這個TotalSeconds會精確到小數點下五位 
+            'MsgBox(mTime.TotalSeconds)
 
+            UpdateUI(mTime.TotalSeconds, TextBox1)
+        Loop
+
+    End Sub
+    Private Sub Test()
+        Dim mTime As New TimeSpan
+        Dim nowtime As DateTime
+
+        '先記錄目前的時間 
+        nowtime = Now
+
+        '關FV
+        RW.SetupBit("M52")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        System.Threading.Thread.Sleep(2000)
+        '開RV
+        RW.SetupBit("M54")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        Dim Thread3 As New System.Threading.Thread(AddressOf Action)
+        Thread3.Start()
+
+        Do While loop_ = True AndAlso mTime.TotalSeconds < 30
+            'sleep 1000毫秒 
+            System.Threading.Thread.Sleep(1000)
+            '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
+            mTime = Now.Subtract(nowtime)
+            '這個TotalSeconds會精確到小數點下五位 
+            'MsgBox(mTime.TotalSeconds)
+            UpdateUI(mTime.TotalSeconds, TextBox2)
+        Loop
+        '開HV
+        nowtime = Now
+        RW.SetupBit("M58")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        System.Threading.Thread.Sleep(1000)
+        '開MIX
+        RW.SetupBit("M66")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        Dim Thread4 As New System.Threading.Thread(AddressOf Action)
+        Thread4.Start()
+
+        Do While loop_ = True AndAlso mTime.TotalSeconds < 150
+            'sleep 1000毫秒 
+            System.Threading.Thread.Sleep(1000)
+            '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
+            mTime = Now.Subtract(nowtime)
+            '這個TotalSeconds會精確到小數點下五位 
+            'MsgBox(mTime.TotalSeconds)
+            UpdateUI(mTime.TotalSeconds, TextBox2)
+        Loop
+        nowtime = Now
+        '關RV
+        RW.SetupBit("M54")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '開Gauge
+        RW.SetupBit("M64")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        System.Threading.Thread.Sleep(2000)
+        '開FV
+        RW.SetupBit("M52")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+
+        RW.SetupWord("D148")
+        Dim tmp As String = ""
+        RW.ReadWord(tmp)
+        System.Threading.Thread.Sleep(Val(tmp))
+        '開MV
+        RW.SetupBit("M50")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        Dim Thread5 As New System.Threading.Thread(AddressOf Action)
+        Thread5.Start()
+
+        Do While loop_ = True AndAlso mTime.TotalSeconds < 1200
+            'sleep 1000毫秒 
+            System.Threading.Thread.Sleep(1000)
+            '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
+            mTime = Now.Subtract(nowtime)
+            '這個TotalSeconds會精確到小數點下五位 
+            'MsgBox(mTime.TotalSeconds)
+            UpdateUI(mTime.TotalSeconds, TextBox2)
+        Loop
+        nowtime = Now
+
+        '關MV
+        RW.SetupBit("M50")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '關SLV
+        RW.SetupBit("M56")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '關HV
+        RW.SetupBit("M58")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '關MIX
+        RW.SetupBit("M66")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '關Gauge
+        RW.SetupBit("M64")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '開Mix 預注
+        RW.SetupBit("M60")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        Dim Thread6 As New System.Threading.Thread(AddressOf Action)
+        Thread6.Start()
+    End Sub
+    Private Sub ching()
+        If (Me.TabControl1.SelectedIndex = 2) Then
+            RP.FillColor = OvalShape1_24.FillColor
+            DP.FillColor = OvalShape1_22.FillColor
+            MV.FillColor = OvalShape1_21.FillColor
+            FV.FillColor = OvalShape1_20.FillColor
+            RV.FillColor = OvalShape1_19.FillColor
+            SLV.FillColor = OvalShape1_18.FillColor
+            HV.FillColor = OvalShape1_17.FillColor
+            MixV.FillColor = OvalShape1_16.FillColor
+            ARV.FillColor = OvalShape1_15.FillColor
+            Y20.FillColor = OvalShape1_8.FillColor
+            GASV.FillColor = OvalShape1_7.FillColor
+            HgV_1.FillColor = OvalShape1_6.FillColor
+            HgV_2.FillColor = OvalShape1_5.FillColor
+            GV_1.FillColor = OvalShape1_4.FillColor
+            GV_2.FillColor = OvalShape1_4.FillColor
+            GAV.FillColor = OvalShape1_3.FillColor
+        ElseIf (Me.TabControl1.SelectedIndex = 3) Then
+            Mv_Btn.BackColor = OvalShape1_21.FillColor
+            Fv_Btn.BackColor = OvalShape1_20.FillColor
+            Rv_Btn.BackColor = OvalShape1_19.FillColor
+            Slv_Btn.BackColor = OvalShape1_18.FillColor
+            Hv_Btn.BackColor = OvalShape1_17.FillColor
+            MixV_Btn.BackColor = OvalShape1_16.FillColor
+            ArV_Btn.BackColor = OvalShape1_15.FillColor
+            Gas_Btn.BackColor = OvalShape1_7.FillColor
+            HgV_1.FillColor = OvalShape1_6.FillColor
+            HgV_2.FillColor = OvalShape1_5.FillColor
+            Gauge_Btn.BackColor = OvalShape1_3.FillColor
+            Gv_Btn.BackColor = OvalShape1_4.FillColor
+        End If
+    End Sub
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-        LetMeCallThread(500)
+        'LetMeCallThread(500)
+        Thread2.Interrupt()
+        Thread2.Abort()
+        loop_ = False
+        Timer2.Enabled = False
+        '關RV
+        RW.SetupBit("M54")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        System.Threading.Thread.Sleep(1000)
+        '開FV
+        RW.SetupBit("M52")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        System.Threading.Thread.Sleep(1000)
+        Timer1.Enabled = True
+        TextBox1.Text = 0
+        TextBox2.Text = 0
     End Sub
 
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
-        Dim Thread1 As New System.Threading.Thread(AddressOf Action)
-        Thread1.Start()
+        'Dim Thread1 As New System.Threading.Thread(AddressOf Action)
+        'Thread1.Start()
+        ching()
     End Sub
     Sub Action()
 
@@ -385,6 +573,7 @@ Public Class Form1
         Y = mConvert.DEC_to_BIN(tmp)
         Y = Y.PadLeft(32, Convert.ToChar("0")) '補齊32位元
         UpdateUI_OvalShape(Y, "Y")
+
     End Sub
     Sub ActionX()
 

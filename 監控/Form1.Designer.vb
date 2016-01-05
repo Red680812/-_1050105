@@ -249,6 +249,7 @@ Partial Class Form1
         Me.MixV_Btn = New System.Windows.Forms.Button()
         Me.Fv_Btn = New System.Windows.Forms.Button()
         Me.Mv_Btn = New System.Windows.Forms.Button()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.MenuStrip1.SuspendLayout()
         Me.sbr.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -391,10 +392,11 @@ Partial Class Form1
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(516, 130)
+        Me.TextBox1.Location = New System.Drawing.Point(521, 130)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(101, 22)
+        Me.TextBox1.Size = New System.Drawing.Size(95, 22)
         Me.TextBox1.TabIndex = 3
+        Me.TextBox1.Text = "0"
         '
         'Button4
         '
@@ -425,7 +427,6 @@ Partial Class Form1
         '
         'Timer2
         '
-        Me.Timer2.Interval = 500
         '
         'TabControl1
         '
@@ -2244,11 +2245,19 @@ Partial Class Form1
         Me.Mv_Btn.Text = "MV"
         Me.Mv_Btn.UseVisualStyleBackColor = False
         '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(521, 156)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(95, 22)
+        Me.TextBox2.TabIndex = 82
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(672, 430)
+        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button2)
@@ -2317,31 +2326,6 @@ Partial Class Form1
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents ShapeContainer2 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents OvalShape2_23 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_22 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_21 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_17 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_18 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_19 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_20 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_24 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_16 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_12 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_11 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_10 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_9 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_13 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_14 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_15 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_8 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_7 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_6 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_5 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_4 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_3 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_2 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape2_1 As Microsoft.VisualBasic.PowerPacks.OvalShape
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -2366,30 +2350,6 @@ Partial Class Form1
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents OvalShape1_1 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_2 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_3 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_4 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_5 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_6 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_7 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_8 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_15 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_14 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_13 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_9 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_10 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_11 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_12 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_16 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_24 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_20 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_19 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_18 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_17 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_21 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_22 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents OvalShape1_23 As Microsoft.VisualBasic.PowerPacks.OvalShape
     Friend WithEvents D130 As System.Windows.Forms.TextBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
@@ -2399,67 +2359,6 @@ Partial Class Form1
     Friend WithEvents TabControl1 As 監控.TabControlEx
     Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
     Friend WithEvents 系統圖ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents RP As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents LineShape3 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape11 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape10 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape9 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape8 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape7 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents DP As Microsoft.VisualBasic.PowerPacks.RectangleShape
-    Friend WithEvents LineShape6 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape5 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape4 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents RectangleShape2 As Microsoft.VisualBasic.PowerPacks.RectangleShape
-    Friend WithEvents RectangleShape1 As Microsoft.VisualBasic.PowerPacks.RectangleShape
-    Friend WithEvents GAV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents LineShape20 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape19 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape18 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape17 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape16 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape15 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape13 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape12 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape36 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape35 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape34 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape33 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape32 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape31 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape30 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape29 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape28 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape27 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape26 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape25 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape24 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape23 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape22 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape21 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape14 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents HgV_2 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents HgV_1 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents GV_2 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents GV_1 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents RV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents HV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents SLV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents GASV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents MV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents ARV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents MixV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents FV As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents Y20 As Microsoft.VisualBasic.PowerPacks.OvalShape
-    Friend WithEvents LineShape42 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape41 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape40 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape39 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape38 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape37 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents Label59 As System.Windows.Forms.Label
     Friend WithEvents Label58 As System.Windows.Forms.Label
     Friend WithEvents Label57 As System.Windows.Forms.Label
@@ -2476,10 +2375,6 @@ Partial Class Form1
     Friend WithEvents Label62 As System.Windows.Forms.Label
     Friend WithEvents Label61 As System.Windows.Forms.Label
     Friend WithEvents Label60 As System.Windows.Forms.Label
-    Friend WithEvents LineShape44 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape43 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents RectangleShape4 As Microsoft.VisualBasic.PowerPacks.RectangleShape
-    Friend WithEvents RectangleShape3 As Microsoft.VisualBasic.PowerPacks.RectangleShape
     Friend WithEvents Label69 As System.Windows.Forms.Label
     Friend WithEvents Label71 As System.Windows.Forms.Label
     Friend WithEvents Label70 As System.Windows.Forms.Label
@@ -2505,5 +2400,119 @@ Partial Class Form1
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents Timer2 As System.Windows.Forms.Timer
-
+    Private WithEvents ShapeContainer2 As PowerPacks.ShapeContainer
+    Private WithEvents OvalShape2_23 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_22 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_21 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_17 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_18 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_19 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_20 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_24 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_16 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_12 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_11 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_10 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_9 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_13 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_14 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_15 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_8 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_7 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_6 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_5 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_4 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_3 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_2 As PowerPacks.OvalShape
+    Private WithEvents OvalShape2_1 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_1 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_2 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_3 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_4 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_5 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_6 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_7 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_8 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_15 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_14 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_13 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_9 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_10 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_11 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_12 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_16 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_24 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_20 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_19 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_18 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_17 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_21 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_22 As PowerPacks.OvalShape
+    Private WithEvents OvalShape1_23 As PowerPacks.OvalShape
+    Private WithEvents ShapeContainer1 As PowerPacks.ShapeContainer
+    Private WithEvents RP As PowerPacks.OvalShape
+    Private WithEvents LineShape3 As PowerPacks.LineShape
+    Private WithEvents LineShape2 As PowerPacks.LineShape
+    Private WithEvents LineShape1 As PowerPacks.LineShape
+    Private WithEvents LineShape11 As PowerPacks.LineShape
+    Private WithEvents LineShape10 As PowerPacks.LineShape
+    Private WithEvents LineShape9 As PowerPacks.LineShape
+    Private WithEvents LineShape8 As PowerPacks.LineShape
+    Private WithEvents LineShape7 As PowerPacks.LineShape
+    Private WithEvents DP As PowerPacks.RectangleShape
+    Private WithEvents LineShape6 As PowerPacks.LineShape
+    Private WithEvents LineShape5 As PowerPacks.LineShape
+    Private WithEvents LineShape4 As PowerPacks.LineShape
+    Private WithEvents RectangleShape2 As PowerPacks.RectangleShape
+    Private WithEvents RectangleShape1 As PowerPacks.RectangleShape
+    Private WithEvents GAV As PowerPacks.OvalShape
+    Private WithEvents LineShape20 As PowerPacks.LineShape
+    Private WithEvents LineShape19 As PowerPacks.LineShape
+    Private WithEvents LineShape18 As PowerPacks.LineShape
+    Private WithEvents LineShape17 As PowerPacks.LineShape
+    Private WithEvents LineShape16 As PowerPacks.LineShape
+    Private WithEvents LineShape15 As PowerPacks.LineShape
+    Private WithEvents LineShape13 As PowerPacks.LineShape
+    Private WithEvents LineShape12 As PowerPacks.LineShape
+    Private WithEvents LineShape36 As PowerPacks.LineShape
+    Private WithEvents LineShape35 As PowerPacks.LineShape
+    Private WithEvents LineShape34 As PowerPacks.LineShape
+    Private WithEvents LineShape33 As PowerPacks.LineShape
+    Private WithEvents LineShape32 As PowerPacks.LineShape
+    Private WithEvents LineShape31 As PowerPacks.LineShape
+    Private WithEvents LineShape30 As PowerPacks.LineShape
+    Private WithEvents LineShape29 As PowerPacks.LineShape
+    Private WithEvents LineShape28 As PowerPacks.LineShape
+    Private WithEvents LineShape27 As PowerPacks.LineShape
+    Private WithEvents LineShape26 As PowerPacks.LineShape
+    Private WithEvents LineShape25 As PowerPacks.LineShape
+    Private WithEvents LineShape24 As PowerPacks.LineShape
+    Private WithEvents LineShape23 As PowerPacks.LineShape
+    Private WithEvents LineShape22 As PowerPacks.LineShape
+    Private WithEvents LineShape21 As PowerPacks.LineShape
+    Private WithEvents LineShape14 As PowerPacks.LineShape
+    Private WithEvents HgV_2 As PowerPacks.OvalShape
+    Private WithEvents HgV_1 As PowerPacks.OvalShape
+    Private WithEvents GV_2 As PowerPacks.OvalShape
+    Private WithEvents GV_1 As PowerPacks.OvalShape
+    Private WithEvents RV As PowerPacks.OvalShape
+    Private WithEvents HV As PowerPacks.OvalShape
+    Private WithEvents SLV As PowerPacks.OvalShape
+    Private WithEvents GASV As PowerPacks.OvalShape
+    Private WithEvents MV As PowerPacks.OvalShape
+    Private WithEvents ARV As PowerPacks.OvalShape
+    Private WithEvents MixV As PowerPacks.OvalShape
+    Private WithEvents FV As PowerPacks.OvalShape
+    Private WithEvents Y20 As PowerPacks.OvalShape
+    Private WithEvents LineShape42 As PowerPacks.LineShape
+    Private WithEvents LineShape41 As PowerPacks.LineShape
+    Private WithEvents LineShape40 As PowerPacks.LineShape
+    Private WithEvents LineShape39 As PowerPacks.LineShape
+    Private WithEvents LineShape38 As PowerPacks.LineShape
+    Private WithEvents LineShape37 As PowerPacks.LineShape
+    Private WithEvents LineShape44 As PowerPacks.LineShape
+    Private WithEvents LineShape43 As PowerPacks.LineShape
+    Private WithEvents RectangleShape4 As PowerPacks.RectangleShape
+    Private WithEvents RectangleShape3 As PowerPacks.RectangleShape
+    Friend WithEvents TextBox2 As TextBox
 End Class
