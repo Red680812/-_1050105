@@ -32,15 +32,15 @@ Public Class Form1
         ' 在結束應用程式之前，最好先隱藏系統匣圖示，
         ' 否則當應用程式不再執行時，該圖示可能會繼續
         ' 留在系統匣中。
-        Thread1.Interrupt()
-        Thread1.Abort()
         NotifyIcon1.Visible = False
+        '離開並關閉執行緒
+        Environment.Exit(Environment.ExitCode)
         Application.Exit()
     End Sub
     Private Sub 離開ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 離開ToolStripMenuItem.Click
-        Thread1.Interrupt()
-        Thread1.Abort()
         Me.Close()
+        Environment.Exit(Environment.ExitCode)
+        Application.Exit()
     End Sub
     Private Sub 連接ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles 連接ToolStripMenuItem1.Click
         Dim connection_Form As New connection_Form()
@@ -144,6 +144,8 @@ Public Class Form1
         Next m3
 
     End Sub
+    Dim Thread1 As New System.Threading.Thread(AddressOf Action)
+
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
         If (Me.TabControl1.SelectedIndex = 0 OrElse Me.TabControl1.SelectedIndex = 2 _
@@ -289,6 +291,8 @@ Public Class Form1
         RW.SetupBit("M50")
         RW.WriteBit(1)
         RW.WriteBit(0)
+        TextBox1.Text = RW.SetupBit_strTmp
+        TextBox2.Text = RW.SetupBit_BitAddr
     End Sub
 
     Private Sub Fv_Btn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Fv_Btn.Click
@@ -301,12 +305,16 @@ Public Class Form1
         RW.SetupBit("M54")
         RW.WriteBit(1)
         RW.WriteBit(0)
+        TextBox1.Text = RW.SetupBit_strTmp
+        TextBox2.Text = RW.SetupBit_BitAddr
     End Sub
 
     Private Sub Slv_Btn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Slv_Btn.Click
         RW.SetupBit("M56")
         RW.WriteBit(1)
         RW.WriteBit(0)
+        TextBox1.Text = RW.SetupBit_strTmp
+        TextBox2.Text = RW.SetupBit_BitAddr
     End Sub
 
     Private Sub Hv_Btn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Hv_Btn.Click
@@ -352,17 +360,44 @@ Public Class Form1
         'TH = New ThreadStart(AddressOf Action1)
         'CT = New Threading.Thread(TH)
         'CT.Start()
-        Timer1.Enabled = False
-        loop_ = True
-        Dim Thread1 As New System.Threading.Thread(AddressOf TimeSpanTest)
-        Thread1.Start()
-        Dim Thread2 As New System.Threading.Thread(AddressOf Test)
-        Thread2.Start()
-        Timer2.Enabled = True
         'Dim ThreadX As New System.Threading.Thread(AddressOf ActionX)
         'ThreadX.Start()
         'Dim ThreadY As New System.Threading.Thread(AddressOf ActionY)
         'ThreadY.Start()
+        Dim Thread2 As New System.Threading.Thread(AddressOf Test)
+        If loop_ = False Then
+            Timer1.Enabled = False
+            loop_ = True
+            Dim TimeSpan As New System.Threading.Thread(AddressOf TimeSpanTest)
+            TimeSpan.Start()
+            Thread2.IsBackground = True
+            Thread2.Start()
+            Timer2.Enabled = True
+        Else
+            'Thread2.Interrupt()
+            'If (Thread2.IsAlive) Then
+            Thread2.Abort()
+            'End If
+
+            loop_ = False
+            Timer2.Enabled = False
+
+            '開SLV
+            RW.SetupBit("M56")
+            RW.WriteBit(1)
+            RW.WriteBit(0)
+            System.Threading.Thread.Sleep(1000)
+            '關Mix 注入
+            RW.SetupBit("M66")
+            RW.WriteBit(1)
+            RW.WriteBit(0)
+            System.Threading.Thread.Sleep(1000)
+            Timer1.Enabled = True
+            TextBox1.Text = "0"
+            TextBox2.Text = "0"
+        End If
+
+
     End Sub
     Dim nowtime As DateTime
     Sub TimeSpanTest()
@@ -393,13 +428,15 @@ Public Class Form1
         RW.SetupBit("M52")
         RW.WriteBit(1)
         RW.WriteBit(0)
+        '更新介面顯示
+        Thread_Action()
         System.Threading.Thread.Sleep(2000)
         '開RV
         RW.SetupBit("M54")
         RW.WriteBit(1)
         RW.WriteBit(0)
-        Dim Thread3 As New System.Threading.Thread(AddressOf Action)
-        Thread3.Start()
+        '更新介面顯示
+        Thread_Action()
 
         Do While loop_ = True AndAlso mTime.TotalSeconds < 30
             'sleep 1000毫秒 
@@ -407,21 +444,22 @@ Public Class Form1
             '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
             mTime = Now.Subtract(nowtime)
             '這個TotalSeconds會精確到小數點下五位 
-            'MsgBox(mTime.TotalSeconds)
             UpdateUI(mTime.TotalSeconds, TextBox2)
         Loop
+        If loop_ = False Then
+            Exit Sub
+        End If
         '開HV
         nowtime = Now
         RW.SetupBit("M58")
         RW.WriteBit(1)
         RW.WriteBit(0)
-        System.Threading.Thread.Sleep(1000)
         '開MIX
         RW.SetupBit("M66")
         RW.WriteBit(1)
         RW.WriteBit(0)
-        Dim Thread4 As New System.Threading.Thread(AddressOf Action)
-        Thread4.Start()
+        '更新介面顯示
+        Thread_Action()
 
         Do While loop_ = True AndAlso mTime.TotalSeconds < 150
             'sleep 1000毫秒 
@@ -429,9 +467,11 @@ Public Class Form1
             '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
             mTime = Now.Subtract(nowtime)
             '這個TotalSeconds會精確到小數點下五位 
-            'MsgBox(mTime.TotalSeconds)
             UpdateUI(mTime.TotalSeconds, TextBox2)
         Loop
+        If loop_ = False Then
+            Exit Sub
+        End If
         nowtime = Now
         '關RV
         RW.SetupBit("M54")
@@ -441,22 +481,29 @@ Public Class Form1
         RW.SetupBit("M64")
         RW.WriteBit(1)
         RW.WriteBit(0)
+        '更新介面顯示
+        Thread_Action()
         System.Threading.Thread.Sleep(2000)
         '開FV
         RW.SetupBit("M52")
         RW.WriteBit(1)
         RW.WriteBit(0)
 
+
         RW.SetupWord("D148")
-        Dim tmp As String = ""
+        Dim tmp As Integer
         RW.ReadWord(tmp)
-        System.Threading.Thread.Sleep(Val(tmp))
+
+        '更新介面顯示
+        Thread_Action()
+
+        System.Threading.Thread.Sleep(tmp * 100)
         '開MV
         RW.SetupBit("M50")
         RW.WriteBit(1)
         RW.WriteBit(0)
-        Dim Thread5 As New System.Threading.Thread(AddressOf Action)
-        Thread5.Start()
+        '更新介面顯示
+        Thread_Action()
 
         Do While loop_ = True AndAlso mTime.TotalSeconds < 1200
             'sleep 1000毫秒 
@@ -464,9 +511,11 @@ Public Class Form1
             '用現在時間去減掉之前所記錄的時間，就會求得所要的TimeSpan 
             mTime = Now.Subtract(nowtime)
             '這個TotalSeconds會精確到小數點下五位 
-            'MsgBox(mTime.TotalSeconds)
             UpdateUI(mTime.TotalSeconds, TextBox2)
         Loop
+        If loop_ = False Then
+            Exit Sub
+        End If
         nowtime = Now
 
         '關MV
@@ -493,8 +542,34 @@ Public Class Form1
         RW.SetupBit("M60")
         RW.WriteBit(1)
         RW.WriteBit(0)
-        Dim Thread6 As New System.Threading.Thread(AddressOf Action)
-        Thread6.Start()
+
+        '更新介面顯示
+        Thread_Action()
+
+        Dim tmp_ As Boolean
+        Do While loop_ = True AndAlso tmp_ <> True
+            RW.SetupBit("M242")
+            RW.ReadBit(tmp_)
+            'sleep 1000毫秒 
+            System.Threading.Thread.Sleep(1000)
+        Loop
+        If loop_ = False Then
+            Exit Sub
+        End If
+        '關Mix 預注
+        RW.SetupBit("M60")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '開Mix 注入
+        RW.SetupBit("M66")
+        RW.WriteBit(1)
+        RW.WriteBit(0)
+        '更新介面顯示
+        Thread_Action()
+    End Sub
+    Private Sub Thread_Action()
+        Dim ThreadAction As New System.Threading.Thread(AddressOf Action)
+        ThreadAction.Start()
     End Sub
     Private Sub ching()
         If (Me.TabControl1.SelectedIndex = 2) Then
@@ -531,8 +606,8 @@ Public Class Form1
     End Sub
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
         'LetMeCallThread(500)
-        Thread2.Interrupt()
-        Thread2.Abort()
+        'Thread2.Interrupt()
+        'Thread2.Abort()
         loop_ = False
         Timer2.Enabled = False
         '關RV
@@ -577,7 +652,7 @@ Public Class Form1
     End Sub
     Sub ActionX()
 
-        Dim X, Y As String
+        Dim X As String
         Dim tmp As Integer
         Dim pad As Char = "0"c
         'Dim t As New Thread(AddressOf RW.ReadDWord)
@@ -591,7 +666,7 @@ Public Class Form1
     End Sub
     Sub ActionY()
 
-        Dim X, Y As String
+        Dim Y As String
         Dim tmp As Integer
         Dim pad As Char = "0"c
 
@@ -627,35 +702,6 @@ Public Class Form1
         End If
 
     End Sub
-    ' 這一段程式碼就是用來執行呼叫thread
-    Dim counter1 As New Count1()
-    Dim Thread1 As New System.Threading.Thread(AddressOf counter1.Count)
-    Private Sub LetMeCallThread(ByVal counter As Integer)
-        counter1.CountTo = counter
-        ' 與物件之間的Call Back機制, 建立handler (Call Back的function)
-        ' 當物件Raise該事件時，可以透過該function取得結果
-        AddHandler counter1.FinishedCounting, AddressOf FinishedCountingEventHandler
-        ' 啟動執行緖
-        Thread1.Start()
-    End Sub
 
-    '  當Thread程式執行完畢(這就是所謂的CallBack機制)
-    Sub FinishedCountingEventHandler(ByVal Count As Integer)
-        msgbox(Count)
-    End Sub
 End Class
-Public Class Count1
-    Public CountTo As Integer
-    '  當程序處理完畢，透過這個method來讓對方知道你已經做完了
-    Public Event FinishedCounting(ByVal NumberOfMatches As Integer)
-    Sub Count()
-        Dim ind, tot As Integer
-        tot = 0
-        For ind = 1 To CountTo
-            tot += 1
-        Next ind
-        ' raise一個事件出來說已經做完了
-        ' 並將處理完的值回傳回去
-        RaiseEvent FinishedCounting(tot)
-    End Sub
-End Class
+
